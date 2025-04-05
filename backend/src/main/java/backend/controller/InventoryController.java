@@ -21,20 +21,20 @@ public class InventoryController {
         return inventoryRepository.save(newInventoryModel);
     }
 
-    @PostMapping("/inventory/itemImg")
-    public String itemImage(@RequestParam("file") MultipartFile file){
+    @PostMapping("/inventory/itemImg") // Fix endpoint URL
+    public String itemImage(@RequestParam("file") MultipartFile file) {
         String folder = "src/main/uploads/";
         String itemImage = file.getOriginalFilename();
 
-        try{
+        try {
             File uploadDir = new File(folder);
-            if(!uploadDir.exists()){
+            if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            file.transferTo(Paths.get(folder+itemImage));
-        }catch (IOException e){
+            file.transferTo(Paths.get(folder + itemImage));
+        } catch (IOException e) {
             e.printStackTrace();
-            return "Error uploading files;" +itemImage;
+            return "Error uploading file: " + itemImage; // Fix error message
         }
         return itemImage;
     }

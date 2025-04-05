@@ -26,25 +26,27 @@ function AddItem() {
         e.preventDefault();
         const formData = new FormData();
         formData.append("file", inventory.itemImage);
-        let itemName = "";
+        let imageName = ""; // Fix variable name
 
-        try{
-            const response = await axios.post("http://localhost:8080/inventory/itemIms",formData)({
+        try {
+            const response = await axios.post("http://localhost:8080/inventory/itemImg", formData, { // Fix endpoint URL
                 headers: {
-                    'Content-Type':'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 },
             });
             imageName = response.data;
-
         } catch (error) {
-            alert("error uploading image");
+            alert("Error uploading image");
             return;
         }
 
-        const updateInventory = {...inventory, itemImage: imageName};
-        await axios.post("http://localhost:8080/inventory",updateInventory);
-        alert("errorr uploading image");
-        return;
+        const updatedInventory = { ...inventory, itemImage: imageName }; // Fix variable name
+        try {
+            await axios.post("http://localhost:8080/inventory", updatedInventory);
+            alert("Item added successfully");
+        } catch (error) {
+            alert("Error adding item");
+        }
     }
 
 
