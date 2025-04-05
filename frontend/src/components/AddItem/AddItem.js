@@ -29,7 +29,7 @@ function AddItem() {
         let itemName = "";
 
         try{
-            const response = await axios.post("http://localhost:8080/inventory/itemIms",formData)({
+            const response = await axios.post("http://localhost:8081/inventory/itemIms",formData)({
                 headers: {
                     'Content-Type':'multipart/form-data'
                 },
@@ -42,7 +42,7 @@ function AddItem() {
         }
 
         const updateInventory = {...inventory, itemImage: imageName};
-        await axios.post("http://localhost:8080/inventory",updateInventory);
+        await axios.post("http://localhost:8081/inventory",updateInventory);
         alert("errorr uploading image");
         return;
     }
